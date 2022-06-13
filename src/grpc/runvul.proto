@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package runvuln;
+
+
+service RunVuln {
+  rpc ScanVuln (RunVulnRequest) returns (RunVulnReply) {}
+}
+
+message RunVulnRequest {
+  string victim = 1;
+  string full_url = 2;
+}
+message RunVulnReply {
+  string message = 1;
+}

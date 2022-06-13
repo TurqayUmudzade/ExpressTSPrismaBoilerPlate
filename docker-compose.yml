@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: postgresdb
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  pgweb:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres_db
+
+  app:
+    container_name: api
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgres_db:5432/db?sslmode=disable"
+      PORT: "8080"
+      JWT_ACCESS_SECRET: "SECRET123"
+      JWT_REFRESH_SECRET: "ANOTHER_SECRET123"

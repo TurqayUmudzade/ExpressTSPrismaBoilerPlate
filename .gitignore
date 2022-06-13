@@ -1,0 +1,13 @@
+dist
+.idea/
+node_modules
+prisma/migrations
+
+src/**/*.js
+src/**/*.js.map
+
+test.*
+*.log
+/logs
+
+.env
